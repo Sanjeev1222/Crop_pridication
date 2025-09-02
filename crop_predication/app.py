@@ -1,17 +1,29 @@
 import numpy as np
-from flask import Flask, request, jsonify,render_template
+from flask import Flask, request, render_template
 import pickle
+import os
 
-Flask_app = Flask(__name__)
-model = pickle.load(open('model.pkl','rb'))
-@Flask_app.route('/')
+app = Flask(__name__)
+
+# Load model
+model_path = os.path.join(os.path.dirname(__file__), "model.pkl")
+model = pickle.load(open(model_path, "rb"))
+
+@app.route('/')
 def home():
-    return render_template('index.html')
-@Flask_app.route('/predict',methods=['POST'])
+    return render_template('index.html', prediction_text="")
+
+@app.route('/predict', methods=['POST'])
 def predict():
-    float_features = [float(x) for x in request.form.values()]
-    features = [np.array(float_features)]
-    prediction = model.predict(features)
-    return render_template('index.html', prediction_text='Predicted crop is {}'.format(prediction))
+    try:
+        float_features = [float(x) for x in request.form.values()]
+        features = [np.array(float_features)]
+        prediction = model.predict(features)
+        return render_template('index.html',
+                               prediction_text=f'Predicted crop is {prediction[0]}')
+    except Exception as e:
+        return render_template('index.html',
+                               prediction_text=f'Error: {str(e)}')
+
 if __name__ == "__main__":
-    Flask_app.run(debug=True)
+    app.run(debug=True)
