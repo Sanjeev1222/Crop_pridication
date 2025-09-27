@@ -1,29 +1,56 @@
 import numpy as np
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, redirect, url_for
 import pickle
-import os
 
-app = Flask(__name__)
+Flask_app = Flask(__name__)
 
-# Load model
-model_path = os.path.join(os.path.dirname(__file__), "model.pkl")
-model = pickle.load(open(model_path, "rb"))
+# Load ML model
+model = pickle.load(open('model.pkl', 'rb'))
 
-@app.route('/')
+# Store users (default one: admin)
+users = {"admin": "1234"}
+
+@Flask_app.route('/')
 def home():
-    return render_template('index.html', prediction_text="")
+    return render_template('login.html')
 
-@app.route('/predict', methods=['POST'])
+# Login route
+@Flask_app.route('/login', methods=['POST'])
+def login():
+    username = request.form['username']
+    password = request.form['password']
+
+    if username in users and users[username] == password:
+        return redirect(url_for('index'))
+    else:
+        return render_template('login.html', error="Invalid Username or Password")
+
+# Register route (GET shows form, POST saves user)
+@Flask_app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+
+        if username in users:
+            return render_template('register.html', error="Username already exists!")
+        else:
+            users[username] = password
+            return redirect(url_for('home'))
+    return render_template('register.html')
+
+# Index page (after login)
+@Flask_app.route('/index')
+def index():
+    return render_template('index.html')
+
+# Prediction route
+@Flask_app.route('/predict', methods=['POST'])
 def predict():
-    try:
-        float_features = [float(x) for x in request.form.values()]
-        features = [np.array(float_features)]
-        prediction = model.predict(features)
-        return render_template('index.html',
-                               prediction_text=f'Predicted crop is {prediction[0]}')
-    except Exception as e:
-        return render_template('index.html',
-                               prediction_text=f'Error: {str(e)}')
+    float_features = [float(x) for x in request.form.values()]
+    features = [np.array(float_features)]
+    prediction = model.predict(features)
+    return render_template('index.html', prediction_text=f'Predicted crop is {prediction}')
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    Flask_app.run(debug=True)
