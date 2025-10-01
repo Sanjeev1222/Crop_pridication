@@ -2,7 +2,7 @@
 # from flask import Flask, request, jsonify,render_template
 # import pickle
 
-# Flask_app = Flask(__name__)
+# app = Flask(__name__)
 # model = pickle.load(open('model.pkl','rb'))
 # @Flask_app.route('/')
 # def home():
@@ -123,4 +123,5 @@ def predict():
 
 if __name__ == "__main__":
     Flask_app.run(debug=True)
+
 
