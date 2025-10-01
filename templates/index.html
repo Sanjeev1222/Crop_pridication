@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Prediction</title>
+   
+    <style>
+          body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url('/static/Main2.jpeg') no-repeat center center/cover;
+  animation: fadeIn 2s ease-in-out;
+}
+
+.login {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+  width: 350px;
+  box-shadow: 0px 8px 20px rgba(0,0,0,0.3);
+  animation: slideUp 1.5s ease;
+}
+
+h1 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #2e7d32;
+  animation: bounce 2s infinite;
+}
+
+input {
+  width: 90%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 14px;
+  outline: none;
+  transition: 0.3s;
+}
+
+input:focus {
+  border-color: #2e7d32;
+  box-shadow: 0px 0px 8px #81c784;
+}
+
+button {
+  margin-top: 15px;
+  padding: 12px;
+  width: 100%;
+  background: #43a047;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #2e7d32;
+  transform: scale(1.05);
+}
+
+
+@keyframes slideUp {
+  from { transform: translateY(50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+</style>
+</head>
+<body>
+<div class="login">
+    <h1>CROP PREDICTION MODEL</h1>
+    <form action="{{ url_for('predict') }}" method="post"> 
+        <input type="text" name="Nitrogen" placeholder="Nitrogen" required>
+        <input type="text" name="Phosphorus" placeholder="Phosphorus" required>
+        <input type="text" name="Potassium" placeholder="Potassium" required>
+        <input type="text" name="Temperature" placeholder="Temperature" required>
+        <input type="text" name="Humidity" placeholder="Humidity" required>
+        <input type="text" name="pH" placeholder="pH" required>
+        <input type="text" name="rainfall" placeholder="Rainfall" required>
+        <button type="submit">Predict</button>
+    </form>
+
+    <!-- Show prediction result -->
+    <h2>{{ prediction_text }}</h2>
+</div>
+</body>
+</html>
