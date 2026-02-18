@@ -78,8 +78,7 @@ This project uses ML algorithms to analyze agricultural data and predict the bes
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/Crop-Prediction-Model.git
-
+git clone https://github.com/Sanjeev1222/Crop_pridication.git
 # Navigate to project folder
 cd Crop-Prediction-Model
 
@@ -88,12 +87,21 @@ pip install -r requirements.txt
 
 # Run Jupyter Notebook
 jupyter notebook
+
+
+
+
 🔮 Future Improvements
 🌦️ Integrate Real-Time Weather API
 🌐 Deploy as Web App (Flask/Streamlit)
 🧪 Add Fertilizer Recommendation System
 📱 Convert into Mobile App
-👨‍💻 Author
+
+
+
+
+
+👨‍💻 AUTHOR
 Sanjeev Kushwaha
 🎓 B.Tech – Artificial Intelligence & Machine Learning
 🏫 Buddha Institute of Technology, Gorakhpur
