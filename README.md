@@ -102,7 +102,7 @@ jupyter notebook
 
 
 👨‍💻 AUTHOR
-Sanjeev Kushwaha
+Sanjeev Kushwaha, Sadanand, Sagar Gupta, Vivek Singh 
 🎓 B.Tech – Artificial Intelligence & Machine Learning
 🏫 Buddha Institute of Technology, Gorakhpur
 🎓 Dr. A.P.J. Abdul Kalam Technical University (AKTU)
